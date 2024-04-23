@@ -1,0 +1,32 @@
+:root{
+    //font-family
+    --font-red-hat-display:  "Red Hat Display", sans-serif;
+
+    //font weith
+    --font-light: 300;
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-bold: 700;
+
+    //color
+    --brand: rgb(0, 0, 0);
+
+    --white: white;
+
+    --background-main: #FAF7F5;
+    --radial-gradient: #C0B7A9;
+
+    --blue-100: #7DD2F3;
+    --red-100: #D6635E;
+    --yellow-100: #ECBC50;
+
+    // font size
+    --text-base: 16px;
+    --text-lg: 18px;
+    --text-xl: 20px;
+    --text-2xl: 24px;
+    --text-3xl: 30px;
+
+    // width
+    --container: 1440px;
+}
