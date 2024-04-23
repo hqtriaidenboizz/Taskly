@@ -25,9 +25,7 @@ const groupedTasks = computed(() => {
     return grouped;
 });
 
-
 getTasks()
-
 </script>
 
 <template>

@@ -16,9 +16,9 @@ export const createTaskSevice =  async (data: Task) => {
     return await axiosRequest.post(url, data)
 }
 
-export const updateTaskSevice = async (id: string) => {
-    const url = `Tasks/${id}`
-    return await axiosRequest.put(url)
+export const updateTaskSevice = async (data: Task) => {
+    const url = `Tasks/${data.id}`
+    return await axiosRequest.put(url, data) 
 }
 
 export const deleteTaskSevice = async (id: string) => {
