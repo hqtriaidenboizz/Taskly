@@ -15,7 +15,7 @@ import { BellDot } from 'lucide-vue-next';
                 <span>
                     Keepitinyoureyes
                 </span>
-                <BaseAvatar/>
+                <BaseAvatar variant="outline"/>
             </div>
             <BaseButton variant="icon"><BellDot size="20"/></BaseButton>
         </div>
@@ -24,7 +24,7 @@ import { BellDot } from 'lucide-vue-next';
 <style lang="scss" scoped>
 .container{
     display: flex;
-    padding: 50px 0;
+    padding: 40px 0;
     justify-content: space-between;
     align-items: center;
     & .header-right{

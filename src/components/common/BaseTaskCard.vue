@@ -1,23 +1,42 @@
-<script setup>
+<script setup lang="ts">
 import BaseButton from '@/components/common/BaseButton.vue';
 import { Ellipsis } from 'lucide-vue-next';
+import BaseAvatar from '@/components/common/BaseAvatar.vue';
+import { TaskImportance } from '@/types';
+
+const props = defineProps({
+    title: {
+        type: String,
+        required: true
+    },
+    importance: {
+        type: String as () => TaskImportance.High | TaskImportance.Low | TaskImportance.Medium,
+        required: true
+    }
+})
 
 </script>
 <template>
     <div class="card-container">
         <div class="card-header">
-            <div class="importance" </div>
-                <BaseButton>
-                    <Ellipsis size="16" />
-                </BaseButton>
-            </div>
-            <div class="card-content">
-                <div class="card-title">
-                    Do it for your team Do it for your teamDo it for your team
-                </div>
-            </div>
-
+            <div class="importance" :class="props.importance"></div>
+            <BaseButton>
+                <Ellipsis :size=16 />
+            </BaseButton>
         </div>
+        <div class="card-content">
+            <div class="card-title">
+                {{ props.title }}
+            </div>
+            <div class="card-deadline">
+                Apr 27, 2024
+            </div>
+        </div>
+        <div class="card-footer">
+            <div>8 comments</div>
+            <BaseAvatar width="28px" height="28px" />
+        </div>
+    </div>
 </template>
 <style lang="scss" scoped>
 .card-container {
@@ -29,7 +48,6 @@ import { Ellipsis } from 'lucide-vue-next';
     cursor: pointer;
     box-shadow: var(--shadow);
     padding: 24px;
-    
 
     & .card-header {
         display: flex;
@@ -40,18 +58,51 @@ import { Ellipsis } from 'lucide-vue-next';
             min-width: 60px;
             height: 6px;
             border-radius: 4px;
+        }
+
+        & .low {
             background-color: var(--blue-100)
         }
+
+        & .medium {
+            background-color: var(--yellow-100)
+        }
+
+        & .high {
+            background-color: var(--red-100)
+        }
     }
-    & .card-content{
+
+    & .card-content {
         display: flex;
         flex-direction: column;
-        & .card-title{
+        gap: 10px;
+
+        & .card-title {
             font-size: var(--text-base);
             font-weight: var(--font-bold);
             line-height: 24px;
         }
 
+        & .card-deadline {
+            background-color: var(--gray-200);
+            font-size: 12px;
+            padding: 6px;
+            font-weight: var(--font-bold);
+            border-radius: 8px;
+            align-self: flex-start;
+        }
+
+    }
+
+    & .card-footer {
+        display: flex;
+        margin-top: 10px;
+        justify-content: space-between;
+        align-items: center;
+        font-size: var(--text-base);
+        color: var(--gray-100);
+        font-weight: var(--font-medium)
     }
 
 }

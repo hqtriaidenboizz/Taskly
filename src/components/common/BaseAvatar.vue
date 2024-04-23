@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts" >
 import { computed } from 'vue';
 import DefaulAvatar from "@/assets/images/default-avatar.jpg"
 
@@ -13,10 +13,14 @@ const props = defineProps({
     },
     url: {
         default: DefaulAvatar
+    },
+    variant: {
+        type: String,
+        default: 'default'
     }
 })
 
-const containerClass = computed(() => (
+const containerStyle = computed(() => (
     {
         width: props.width,
         height: props.height
@@ -25,7 +29,7 @@ const containerClass = computed(() => (
 
 </script>
 <template>
-    <div class="avatar-container" :style="containerClass">
+    <div class="avatar-container" :style="containerStyle" :class="props.variant">
         <img :src="props.url" alt="avatar" class="avatar-img">
     </div>
 </template>
@@ -36,14 +40,15 @@ const containerClass = computed(() => (
     border-radius: 100%;
     cursor: pointer;
     overflow: hidden;
-    border: 5px solid var(--white);
-    box-shadow: var(--shadow);
     
     & .avatar-img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
-
+}
+.outline {
+    border: 5px solid var(--white);
+    box-shadow: var(--shadow);
 }
 </style>

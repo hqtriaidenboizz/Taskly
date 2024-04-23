@@ -1,46 +1,79 @@
 <script setup lang="ts">
 import BaseTaskCard from '@/components/common/BaseTaskCard.vue';
+import { TASK_STATUS } from '@/constants/taskStatus';
+import axiosRequest from '@/services/api';
+import useTaskStore from '@/stores/tasks';
+import { TaskImportance, TaskStatus, type Task, type TaskStatusColumn } from '@/types';
+import { storeToRefs } from 'pinia';
+import { computed, ref } from 'vue';
+import { VueDraggableNext } from 'vue-draggable-next';
 
+const { tasks, loading, error } = storeToRefs(useTaskStore())
+const { getTasks } = useTaskStore()
+const taskStatus = ref<TaskStatusColumn[]>(TASK_STATUS || [])
+const groupedTasks = computed(() => {
+    const grouped: Record<TaskStatus, Task[]> = {
+        [TaskStatus.Start]: [],
+        [TaskStatus.Progress]: [],
+        [TaskStatus.Done]: [],
+    };
+
+    tasks.value.forEach(task => {
+        grouped[task.status].push(task);
+    });
+
+    return grouped;
+});
+
+
+getTasks()
 
 </script>
 
 <template>
     <div class="container">
         <div class="tasks">
-            <div class="tasks-column">
-                <div class="column-name" >To Start</div>
-                <BaseTaskCard/>
-                <BaseTaskCard/>
-                <BaseTaskCard/>
-
-            </div>
-            <div class="tasks-column">
-                <div class="column-name" >In Progress</div>
-
-                <BaseTaskCard/>
-
-            </div>
-            <div class="tasks-column">
-                <div class="column-name" >Done</div>
-
-                <BaseTaskCard/>
-
+            <div v-for="status in taskStatus" class="tasks-column" :key="status.id">
+                <div class="column-name">{{ status.name }}</div>
+                <VueDraggableNext class="task-cards" group="task">
+                    <BaseTaskCard
+                        v-for="task in groupedTasks[status.type]"
+                        :key="task.id"
+                        v-bind="task"
+                    />
+                </VueDraggableNext>
             </div>
         </div>
     </div>
-
 </template>
+
 <style lang="scss" scoped>
-.tasks{
+.tasks {
     display: flex;
     justify-content: space-between;
     gap: 100px;
 
-    & .tasks-column{
+    & .tasks-column {
         display: flex;
         flex-direction: column;
         width: 100%;
         gap: 20px;
+
+        & .task-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 600px;
+            padding: 20px 4px;
+            background: none;
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+        }
+
         & .column-name {
             font-size: var(--text-xl);
             font-weight: var(--font-bold)
