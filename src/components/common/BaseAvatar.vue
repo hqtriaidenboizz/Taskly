@@ -1,0 +1,49 @@
+<script setup>
+import { computed } from 'vue';
+import DefaulAvatar from "@/assets/images/default-avatar.jpg"
+
+const props = defineProps({
+    width: {
+        type: String,
+        default: '30px'
+    },
+    height: {
+        type: String,
+        default: '30px'
+    },
+    url: {
+        default: DefaulAvatar
+    }
+})
+
+const containerClass = computed(() => (
+    {
+        width: props.width,
+        height: props.height
+    }
+))
+
+</script>
+<template>
+    <div class="avatar-container" :style="containerClass">
+        <img :src="props.url" alt="avatar" class="avatar-img">
+    </div>
+</template>
+
+<style scoped lang="scss">
+.avatar-container {
+    background-color: var(--white);
+    border-radius: 100%;
+    cursor: pointer;
+    overflow: hidden;
+    border: 5px solid var(--white);
+    box-shadow: var(--shadow);
+    
+    & .avatar-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+}
+</style>
