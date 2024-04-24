@@ -1,19 +1,29 @@
 <script setup lang="ts">
 import BaseButton from '@/components/common/BaseButton.vue';
-import { Ellipsis } from 'lucide-vue-next';
+import { CaptionsOff } from 'lucide-vue-next';
 import BaseAvatar from '@/components/common/BaseAvatar.vue';
 import { TaskImportance } from '@/types';
 
 const props = defineProps({
+    id: {
+        type: String,
+    },
     title: {
         type: String,
         required: true
     },
     importance: {
-        type: String as () => TaskImportance.High | TaskImportance.Low | TaskImportance.Medium,
+        type: String as () => TaskImportance,
         required: true
-    }
+    },
+    deleteCard: Function
 })
+
+const handleDelete = (id?: string) => {
+    if (props.deleteCard) {
+        props.deleteCard(id)
+    }
+}
 
 </script>
 <template>
@@ -21,7 +31,7 @@ const props = defineProps({
         <div class="card-header">
             <div class="importance" :class="props.importance"></div>
             <BaseButton>
-                <Ellipsis :size=16 />
+                <CaptionsOff :size=16 @click="handleDelete(props.id)" />
             </BaseButton>
         </div>
         <div class="card-content">
