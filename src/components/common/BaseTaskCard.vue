@@ -3,6 +3,7 @@ import BaseButton from '@/components/common/BaseButton.vue';
 import { CaptionsOff } from 'lucide-vue-next';
 import BaseAvatar from '@/components/common/BaseAvatar.vue';
 import { TaskImportance } from '@/types';
+import useTaskStore from '@/stores/tasks';
 
 const props = defineProps({
     id: {
@@ -16,22 +17,22 @@ const props = defineProps({
         type: String as () => TaskImportance,
         required: true
     },
-    deleteCard: Function
 })
 
-const handleDelete = (id?: string) => {
-    if (props.deleteCard) {
-        props.deleteCard(id)
-    }
+const emit = defineEmits(['deleteTask'])
+
+const handleDeleteTask = (id?: string) => {
+    emit('deleteTask',id)
 }
 
 </script>
+
 <template>
     <div class="card-container">
         <div class="card-header">
             <div class="importance" :class="props.importance"></div>
             <BaseButton>
-                <CaptionsOff :size=16 @click="handleDelete(props.id)" />
+                <CaptionsOff :size=16 @click="handleDeleteTask(props.id)" />
             </BaseButton>
         </div>
         <div class="card-content">
@@ -48,6 +49,7 @@ const handleDelete = (id?: string) => {
         </div>
     </div>
 </template>
+
 <style lang="scss" scoped>
 .card-container {
     display: flex;
@@ -68,6 +70,7 @@ const handleDelete = (id?: string) => {
             min-width: 60px;
             height: 6px;
             border-radius: 4px;
+
         }
 
         & .low {

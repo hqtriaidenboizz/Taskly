@@ -16,7 +16,7 @@ const computedClasses = computed(() => {
 <template>
     <button :class="computedClasses">
         <slot name="iconLeft"></slot>
-        <slot></slot>
+        <slot/>
         <slot name="iconRight"></slot>
     </button>
 </template>
@@ -30,6 +30,9 @@ const computedClasses = computed(() => {
     border: none;
     background: none;
     border-radius: 4px;
+}
+.btn-icon {
+    
 }
 .btn-icon{
     background-color: var(--white);

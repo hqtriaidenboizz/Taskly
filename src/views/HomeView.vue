@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import BaseTaskCard from '@/components/common/BaseTaskCard.vue';
-import FormCreate from '@/components/home/FormCreate.vue';
+import FormCreateTask from '@/components/home/FormCreateTask.vue';
 import { TASK_STATUS } from '@/constants/taskStatus';
-import axiosRequest from '@/services/api';
 import useTaskStore from '@/stores/tasks';
 import { TaskImportance, TaskStatus, type Task, type TaskStatusColumn } from '@/types';
 import { storeToRefs } from 'pinia';
@@ -10,7 +9,8 @@ import { computed, ref } from 'vue';
 import { VueDraggableNext } from 'vue-draggable-next';
 
 const { tasks, loading, error } = storeToRefs(useTaskStore())
-const { getTasks, createTask, deleteTask } = useTaskStore()
+const { getTasks, createTask,deleteTask } = useTaskStore()
+
 const taskStatus = ref<TaskStatusColumn[]>(TASK_STATUS || [])
 const groupedTasks = computed(() => {
     const grouped: Record<TaskStatus, Task[]> = {
@@ -35,12 +35,12 @@ getTasks()
             <div v-for="status in taskStatus" class="tasks-column" :key="status.id">
                 <div class="column-name">{{ status.name }}</div>
                 <VueDraggableNext class="task-cards" group="task">
-                    <FormCreate :onSubmit="createTask" v-if="status.type === TaskStatus.Start"/>
+                    <FormCreateTask  v-if="status.type === TaskStatus.Start" @createTask="createTask"/>
                     <BaseTaskCard
                         v-for="task in groupedTasks[status.type]"
                         :key="task.id"
                         v-bind="task"
-                        :deleteCard="deleteTask"
+                        @deleteTask="deleteTask"
                     />
                 </VueDraggableNext>
             </div>

@@ -17,12 +17,6 @@ export enum TaskImportance {
     High = "high",
 }
 
-// export interface TaskStoreState {
-//     toStartTasks: Task[];
-//     inProcessTasks: Task[];
-//     doneTasks: Task[];
-// }
-
 export interface TaskStatusColumn {
     id: number;
     name: string;

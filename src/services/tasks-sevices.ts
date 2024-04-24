@@ -7,22 +7,21 @@ export const getTasksSevice = async () => {
 };
 
 export const getTaskSevice = async (id: string) => {
-    const url = `Tasks/${id}`
-    return await axiosRequest.get(url)
-}
+    const url = `Tasks/${id}`;
+    return await axiosRequest.get(url);
+};
 
-export const createTaskSevice =  async (data: Task) => {
-    const url = `Tasks/`
-    return await axiosRequest.post(url, data)
-}
+export const createTaskSevice = async (data: Task) => {
+    const url = `Tasks/`;
+    return await axiosRequest.post(url, data);
+};
 
 export const updateTaskSevice = async (data: Task) => {
-    const url = `Tasks/${data.id}`
-    return await axiosRequest.put(url, data) 
-}
+    const url = `Tasks/${data.id}`;
+    return await axiosRequest.put(url, data);
+};
 
-export const deleteTaskSevice = async (id: string) => {
-    const url = `Tasks/${id}`
-    return await axiosRequest.delete(url)
-}
-
+export const deleteTaskSevice = async (id?: string) => {
+    const url = `Tasks/${id}`;
+    return await axiosRequest.delete(url);
+};

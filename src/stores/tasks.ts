@@ -54,7 +54,7 @@ const useTaskStore = defineStore("tasksStore", () => {
         }
     };
 
-    const deleteTask = async (taskId: string) => {
+    const deleteTask = async (taskId?: string) => {
         loading.value = true;
         try {
             await deleteTaskSevice(taskId);
